@@ -1,0 +1,4 @@
+interface:
+  display_name: "RevOps Standard UI"
+  short_description: "Build or redesign HTML for RevOps data and workflows"
+  default_prompt: "Use $revops-standard-ui to build or redesign an HTML file around its data and workflow."
