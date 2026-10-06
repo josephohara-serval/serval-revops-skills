@@ -15,14 +15,9 @@ The current skill is `revops-standard-ui`. Add optional scripts inside the skill
 
 ## Build, Test, and Development Commands
 
-There is no build system, package manifest, or local development server. Install the current skill from the repository root:
+There is no build system, package manifest, or local development server. Use the managed installation command in `README.md` from the repository root. It registers the installed files with the updater. Use the same procedure without `--seed` for later updates. Start a new Codex chat if the installed skill is unavailable.
 
-```sh
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-cp -R skills/revops-standard-ui "${CODEX_HOME:-$HOME/.codex}/skills/"
-```
-
-For updates, follow the replacement instructions in `README.md`. Start a new Codex chat if the installed skill is unavailable.
+Run updater regression tests with `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s skills/revops-standard-ui/scripts -p 'test_*.py'`.
 
 Run `git diff --check` to detect whitespace errors. Use `git status --short` to confirm which files will enter the change, including new files.
 
@@ -36,7 +31,7 @@ For UI skill changes, read `references/serval-design.md` and `references/design-
 
 ## Testing Guidelines
 
-No automated test framework or coverage threshold is configured. Check frontmatter, metadata, relative links, and bundled asset paths after edits. Exercise changed skill instructions with a representative request in Codex.
+Updater tests use Python's standard `unittest` module and temporary Git repositories. No coverage threshold is configured. Check frontmatter, metadata, relative links, and bundled asset paths after edits. Exercise changed skill instructions with a representative request in Codex.
 
 For HTML output, verify data, controls, keyboard access, narrow layouts, reduced motion, and console errors. Report checks that remain unverified.
 

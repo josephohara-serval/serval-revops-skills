@@ -70,7 +70,7 @@ def update(args):
         state = json.loads(state_path.read_text()) if state_path.exists() else {}
         now = time.time()
         if args.seed:
-            if state or dest.exists() or dest.is_symlink():
+            if state.get("installed_hash") or dest.exists() or dest.is_symlink():
                 raise ValueError("Initial installation already exists")
         elif now - state.get("last_attempt", 0) < INTERVAL:
             return {"status": "skipped", "reason": "Seven-day interval has not elapsed"}
@@ -113,18 +113,20 @@ def update(args):
             validate(stage)
             new_hash = fingerprint(stage)
             changed = not dest.exists() or new_hash != state.get("installed_hash")
-            if changed:
-                backup = Path(temporary) / "previous"
-                if dest.exists():
-                    dest.rename(backup)
-                try:
+            backup = Path(temporary) / "previous"
+            try:
+                if changed:
+                    if dest.exists():
+                        dest.rename(backup)
                     stage.rename(dest)
-                except Exception:
-                    if backup.exists():
-                        backup.rename(dest)
-                    raise
-            state.update(installed_hash=new_hash, installed_revision=revision)
-            save(state_path, state)
+                installed_state = dict(state, installed_hash=new_hash, installed_revision=revision)
+                save(state_path, installed_state)
+            except BaseException:
+                if changed and not stage.exists() and dest.exists():
+                    shutil.rmtree(dest)
+                if backup.exists():
+                    backup.rename(dest)
+                raise
         return {"status": "installed" if args.seed else "updated" if changed else "unchanged", "revision": revision}
 
 
