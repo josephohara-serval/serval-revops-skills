@@ -1,0 +1,4 @@
+interface:
+  display_name: "NDA Review"
+  short_description: "Check setup, submit NDAs, and track legal clearance"
+  default_prompt: "Use $nda-review to prepare this NDA, send it to legal, and monitor the review through signing clearance for up to three hours."

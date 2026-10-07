@@ -7,10 +7,11 @@ Shared skills for the team's daily work and project tasks. Each skill lives in i
 | Skill | Use |
 | --- | --- |
 | [revops-standard-ui](skills/revops-standard-ui/SKILL.md) | Build a new HTML interface or redesign an existing file. Apply Serval design guidelines. Match the layout to the data. Use uselayouts and transitions.dev for design references. |
+| [nda-review](skills/nda-review/SKILL.md) | Check Gmail and Notion setup, prepare a verified NDA PDF, submit it to legal from the invoking user's account, and track approval or Terrain's Notion client-portal review. |
 
-## Use in Codex
+## Install revops-standard-ui in Codex
 
-Clone this repository. From the repository folder, install the skill and its updater:
+Clone this repository. From the repository folder, install `revops-standard-ui` and its updater:
 
 ```sh
 serval_codex_dir="${CODEX_HOME:-$HOME/.codex}"
@@ -51,6 +52,37 @@ Help the team find blocked accounts and inspect their next steps.
 The skill reads both design sources when selecting patterns. It creates local HTML output by default. It supports standalone files without a build step. Source access is needed to inspect current patterns. The agent reports any unavailable source or browser checks.
 
 The skill includes [Serval design guidelines](skills/revops-standard-ui/references/serval-design.md), official logo assets, a local Inter font, and its license. The guidelines take priority over the inspiration sources. Keep the full skill folder together when installing or updating it.
+
+## Use nda-review
+
+The skill defaults to `serval@in.marko.ai` as the legal recipient. The sender is the invoking user's verified email account. It accepts an attached PDF or information that lets the agent acquire or generate one. Preparation-only requests do not send email.
+
+When monitoring is requested, the default is a check every five minutes for one three-hour window. An acknowledgment keeps the review pending. Explicit approval by the legal-review agent stops monitoring and produces a signing-clearance alert. If the agent does not approve, someone from Terrain replies with a link to their Notion client portal. After the correct page and discussion access are verified, tracking moves from that email thread to the Notion review, even if the email does not list specific changes. Terrain's explicit legal approval then ends monitoring. The original deadline still applies.
+
+The shared skill supports installation in Codex, ChatGPT Work, Cursor, Claude Code, and Claude Cowork. See [platform setup](skills/nda-review/references/platform-setup.md) for installation routes, packaging, and required integrations. The updater above manages only `revops-standard-ui`; it does not install or update `nda-review`. Keep the complete skill folder together.
+
+Example requests after installing or attaching the skill:
+
+```text
+Use nda-review to check my setup.
+```
+
+This makes live read-only Gmail and Notion login checks and reports what works, what is blocked, and what is still untested. It does not send email or start monitoring. Add a Terrain portal URL to check access to that specific page and its discussions. The relevant checks also run before submission and monitoring; preparation-only requests do not require connected accounts.
+
+```text
+Use nda-review to prepare this online NDA as a PDF for legal review: <URL>.
+```
+
+```text
+Use nda-review to send the attached NDA to legal and monitor the review for three hours.
+```
+
+```text
+Use nda-review to resume monitoring this Notion legal review for two hours: <Notion URL>.
+The original submission is in this email thread: <email link>.
+```
+
+Installation does not establish Gmail, Notion, or scheduler access. The agent checks those capabilities for the requested steps and reports any blocker. Private agreements and monitoring state stay outside this repository.
 
 ## Add a skill
 
