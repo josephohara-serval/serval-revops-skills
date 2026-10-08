@@ -31,7 +31,7 @@ Terrain's client portal may be in a different workspace from the user's connecte
 
 ## 4. Check monitoring availability without starting it
 
-Inspect whether the host can schedule future runs, retain private context, access the same connections in those runs, update the active source, and stop the schedule. A foreground loop is insufficient for durable monitoring. Exposed scheduler controls establish availability, not successful scheduled execution. Do not create a test task, heartbeat, or daemon in setup-check mode.
+Inspect whether the host can schedule future runs, retain private context, access the same connections in those runs, update the active source, enforce a timezone-aware 08:00–17:00 America/Los_Angeles window, retain the next 08:00 wake across an overnight pause, and stop the schedule on terminal outcomes. Distinguish overnight pause/resume support from terminal cancellation; verify available timezone and daylight-saving controls without creating a test schedule. A foreground loop is insufficient for durable monitoring. Exposed scheduler controls establish availability, not successful scheduled execution. Do not create a test task, heartbeat, or daemon in setup-check mode.
 
 ## 5. Return a short report and the next action
 

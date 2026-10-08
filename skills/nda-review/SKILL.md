@@ -17,7 +17,7 @@ For `Use nda-review to check my setup` or `$nda-review check setup`, follow [set
 
 Also run the relevant read-only checks at the start of a submission or monitoring workflow. Reuse successful checks from the same session while the connection is unchanged, but always reverify the sender immediately before sending and check the actual Terrain page when its link arrives. Do not require Gmail or Notion setup for a preparation-only request.
 
-For resumed or scheduled monitoring, first load the run record and enforce its stopped-state and deadline guards. Check only the active source; do not repeat Gmail setup probes after the monitor has moved to Notion. An explicit standalone setup-check request may check both connections without restarting a stopped review.
+For resumed or scheduled monitoring, first load the run record and enforce its stopped-state, deadline, and Pacific daily-window guards. Check only the active source; do not repeat Gmail setup probes after the monitor has moved to Notion. An explicit standalone setup-check request may check both connections without restarting a stopped review.
 
 ## 1. Establish scope and available tools
 
@@ -39,7 +39,7 @@ For the default workflow or an explicit submission request, follow [legal submis
 
 ## 4. Track legal's response
 
-For the default workflow or an explicit monitoring request, follow [review monitoring](references/review-monitoring.md). Default to checks every twenty minutes for one three-hour window measured from the skill invocation that requested the full workflow, or from the separate monitoring request. Honor explicit user timing and requests not to monitor. Carry the same absolute deadline from Gmail to Notion.
+For the default workflow or an explicit monitoring request, follow [review monitoring](references/review-monitoring.md). Default to checks every twenty minutes only from 8am inclusive to 5pm exclusive Pacific Time (`America/Los_Angeles`), every day. Pause overnight and resume the same review at 8am. The default three-hour duration counts only elapsed time inside those daily windows from the full-workflow invocation or separate monitoring request. Compute its absolute deadline once and preserve it across pauses and Gmail-to-Notion handoff. Explicit hard deadlines are not extended; never resume a terminally stopped or expired review. Follow the [daily-window rules](references/review-monitoring.md#pacific-daily-window-and-overnight-pause). Honor explicit user timing and requests not to monitor.
 
 While Gmail is the active source, every run must both read the original review thread and search for separate messages associated with this NDA, including read or archived Notion notifications, unless a verified terminal outcome stops monitoring first. A quiet original thread does not establish that no handoff arrived. Verify each candidate against the agreement before switching sources or announcing a decision.
 
@@ -50,6 +50,7 @@ While Gmail is the active source, every run must both read the original review t
 | A reply, separate email, or Notion notification supplies a candidate NDA client-portal link | Verify the linked agreement and page/discussion access, then transfer the same monitor to that Notion page. Specific changes need not be listed in the email. |
 | A verified, unreported Terrain Legal reply is present on the matching Notion review | Stop monitoring and return the full reply and its associated files. Apply this during handoff as well as later checks. Legal clearance is a separate determination. |
 | Conditional approval, unresolved changes, or unclear approval scope | Keep legal status pending and surface the condition or needed action. Continue Gmail monitoring while Gmail is active; a verified Terrain Notion reply still ends monitoring. |
+| Outside 8am–5pm Pacific, with time remaining | Pause review checks and Gmail read-state updates; automatically resume the same review at the next 8am. |
 | Deadline, cancellation, or access failure | Stop the monitor and report its actual status and any unfinished review. |
 
 During active Gmail monitoring, after reading and verifying a new reply from the legal-review bot, mark that review thread as read before applying approval or handoff rules. This is part of the default monitoring workflow; do not request separate confirmation. Honor an explicit request to leave mail unread. Follow [reply read state](references/review-monitoring.md#mark-the-bot-review-thread-as-read) and report a failed read-state update without blocking the review outcome. Setup-check remains read-only.

@@ -1,4 +1,4 @@
 interface:
   display_name: "NDA Review"
   short_description: "Submit NDAs and return legal replies and files"
-  default_prompt: "Use $nda-review to prepare this NDA, send it to legal, and monitor for up to three hours, stopping at email approval or a Terrain Notion reply and returning the reply and its files."
+  default_prompt: "Use $nda-review to prepare this NDA, send it to legal, and monitor every twenty minutes between 8am and 5pm Pacific for up to three hours of allowed-window time, pausing overnight, stopping at email approval or a Terrain Notion reply and returning the reply and its files."
