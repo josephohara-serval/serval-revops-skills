@@ -31,7 +31,7 @@ Upload/install only when requested. Do not include run records, source agreement
 | --- | --- |
 | PDF preparation | Can read supplied files, acquire authorized sources, compare text, and inspect rendered pages. Use available libraries or native export. |
 | Invoking user's email | Can inspect the current account identity, send a real PDF attachment, and read the sent message back. |
-| Gmail tracking | Can read complete messages and reply/thread identifiers in the same user's mailbox. |
+| Gmail tracking | Can read review threads and search the same mailbox for separate messages since submission, including read/archived Notion notifications; can follow result pages and retrieve complete message bodies and HTML review links. |
 | Notion tracking | Can access Terrain's linked client-portal page and full relevant comments, including inline and resolved discussion history. A login to a different Notion workspace or search-only access is insufficient. |
 | Durable monitoring | Can schedule a future run with the needed connections, retain private state, and update/stop the schedule. It must enforce the same deadline after a source change. |
 | User notification | Can report changes in the originating task or another user-authorized destination. |
@@ -42,9 +42,27 @@ For Notion tools that expose these options, fetch the page with discussion marke
 
 Use the host's native scheduler when it meets the capability requirements. In Codex, this can be a thread heartbeat. Other hosts may expose scheduled tasks, routines, or session-only loops; inspect the actual availability and lifetime. Do not replace unavailable background scheduling with an undisclosed foreground loop or a new external service. Report which steps work and which remain blocked.
 
+## Preserve discovery in scheduled prompts
+
+When creating or updating an authorized monitoring schedule, carry forward the stopped-state and deadline guards, run-record path, submission time, agreement discovery terms, and processed identifiers. Explicitly require both Gmail operations on every run while Gmail is active: read the original and verified review threads, and search for separate agreement-related messages, including read/archived Notion mention, comment, and sharing notifications. A prompt that only says to read a thread is incomplete. Follow [Gmail discovery and verification](review-monitoring.md#gmail-discovery-and-verification) for full-message/HTML-link inspection, candidate verification, pagination, and deduplication.
+
+Require verification of the linked NDA page and all relevant discussions before transferring the same monitor to Notion; preserve the original deadline and inspect any approval already present. Once Notion is active, read only that review source. Read back the saved schedule/context to confirm these instructions survived. Updating this skill does not authorize restarting a cancelled or expired monitor.
+
 ## Verification before claiming platform support
 
 Check skill discovery and references, then exercise preparation, attachment send/readback, Gmail decisions, Notion handoff/comments, deadline handling, and scheduler cancellation in the target host. Use synthetic material and isolated tests for decision checks. Live emails and scheduled actions require user authorization. A successful run in one host does not prove integrations in the other four.
+
+Include these handoff scenarios when evaluating the monitoring instructions:
+
+| Scenario | Required outcome |
+| --- | --- |
+| Original thread has non-approval; a separate, already-read Notion notification names the NDA and contains its link only in HTML | Discover the notification, verify the matching page and discussions, then transfer the same monitor with the unchanged deadline. |
+| Notification is archived, appears on a later search-results page, or becomes searchable after an earlier check | Discover it without depending on unread/inbox state or advancing past the unprocessed message's timestamp. |
+| Unrelated NDA notification, or another agreement with the same parties | Exclude the unrelated result; keep ambiguous versions pending instead of transferring or declaring approval. |
+| Same notification is returned on later runs | Preserve any unresolved candidate; do not duplicate a completed handoff or alert. |
+| Correct page is accessible but its discussions are denied | Stop with a blocked handoff; do not claim Notion tracking or clearance. |
+| Matching page already contains explicit legal approval for the applicable version | Use the terminal approval procedure; do not start another monitor or announce a stale pending handoff. |
+| Monitor is cancelled/expired, or has already moved to Notion | Perform no review reads when stopped; while active in Notion, do not resume Gmail discovery. |
 
 Official installation references, checked October 7, 2026:
 
