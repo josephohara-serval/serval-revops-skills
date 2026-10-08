@@ -1,4 +1,4 @@
 interface:
   display_name: "NDA Review"
-  short_description: "Check setup, submit NDAs, and track legal clearance"
-  default_prompt: "Use $nda-review to prepare this NDA, send it to legal, and monitor the review through signing clearance for up to three hours."
+  short_description: "Submit NDAs and return legal replies and files"
+  default_prompt: "Use $nda-review to prepare this NDA, send it to legal, and monitor for up to three hours, stopping at email approval or a Terrain Notion reply and returning the reply and its files."
