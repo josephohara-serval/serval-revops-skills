@@ -39,7 +39,7 @@ For the default workflow or an explicit submission request, follow [legal submis
 
 ## 4. Track legal's response
 
-For the default workflow or an explicit monitoring request, follow [review monitoring](references/review-monitoring.md). Default to checks every five minutes for one three-hour window measured from the skill invocation that requested the full workflow, or from the separate monitoring request. Honor explicit user timing and requests not to monitor. Carry the same absolute deadline from Gmail to Notion.
+For the default workflow or an explicit monitoring request, follow [review monitoring](references/review-monitoring.md). Default to checks every twenty minutes for one three-hour window measured from the skill invocation that requested the full workflow, or from the separate monitoring request. Honor explicit user timing and requests not to monitor. Carry the same absolute deadline from Gmail to Notion.
 
 While Gmail is the active source, every run must both read the original review thread and search for separate messages associated with this NDA, including read or archived Notion notifications, unless a verified terminal outcome stops monitoring first. A quiet original thread does not establish that no handoff arrived. Verify each candidate against the agreement before switching sources or announcing a decision.
 
