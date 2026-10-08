@@ -39,7 +39,7 @@ For the default workflow or an explicit submission request, follow [legal submis
 
 ## 4. Track legal's response
 
-For the default workflow or an explicit monitoring request, follow [review monitoring](references/review-monitoring.md). Default to checks every five minutes for one three-hour window measured from the skill invocation that requested the full workflow, or from the separate monitoring request. Honor explicit user timing and requests not to monitor. Carry the same absolute deadline from Gmail to Notion.
+For the default workflow or an explicit monitoring request, follow [review monitoring](references/review-monitoring.md). Default to checks every twenty minutes for one three-hour window measured from the skill invocation that requested the full workflow, or from the separate monitoring request. Honor explicit user timing and requests not to monitor. Carry the same absolute deadline from Gmail to Notion.
 
 While Gmail is the active source, every run must both read the original review thread and search for separate messages associated with this NDA, including read or archived Notion notifications, unless a verified terminal outcome stops monitoring first. A quiet original thread does not establish that no handoff arrived. Verify each candidate against the agreement before switching sources or announcing a decision.
 
@@ -51,6 +51,8 @@ While Gmail is the active source, every run must both read the original review t
 | A verified, unreported Terrain Legal reply is present on the matching Notion review | Stop monitoring and return the full reply and its associated files. Apply this during handoff as well as later checks. Legal clearance is a separate determination. |
 | Conditional approval, unresolved changes, or unclear approval scope | Keep legal status pending and surface the condition or needed action. Continue Gmail monitoring while Gmail is active; a verified Terrain Notion reply still ends monitoring. |
 | Deadline, cancellation, or access failure | Stop the monitor and report its actual status and any unfinished review. |
+
+During active Gmail monitoring, after reading and verifying a new reply from the legal-review bot, mark that review thread as read before applying approval or handoff rules. This is part of the default monitoring workflow; do not request separate confirmation. Honor an explicit request to leave mail unread. Follow [reply read state](references/review-monitoring.md#mark-the-bot-review-thread-as-read) and report a failed read-state update without blocking the review outcome. Setup-check remains read-only.
 
 Monitoring reads legal's instructions and decisions; it does not negotiate, post comments, accept changes, or sign. Those actions need their own user request. A resolved discussion or edited page is not signing clearance.
 
