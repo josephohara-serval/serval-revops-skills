@@ -16,6 +16,8 @@ For a missing plugin or expired login, give the host's supported connect/reconne
 2. Make a bounded read-only mailbox search, preferably returning at most one message ID or metadata record. Use agreement names/title and the submission time when available; otherwise a small recent-mail query is sufficient. Verify that search can discover messages outside a supplied review thread, including already-read and archived mail. A thread read alone does not establish this capability. Inspect full-message/HTML-link retrieval and pagination support as well, because Notion notifications may carry the review link only in HTML. Do not print unrelated message contents. A successful empty result verifies that the query works; it is not an authentication failure or proof of actual handoff discovery. Full thread, HTML-link, and attachment access remain untested unless exercised on a relevant item. During active monitoring, use both discovery paths in [review monitoring](review-monitoring.md); the one-result setup probe does not replace them.
 3. Inspect whether attachment-capable sending and sent-message readback tools are exposed and whether their permissions can be read without mutation. Report `available, send not exercised` when only capability is known. Do not send a test email or save a draft to prove write access.
 
+4. Inspect whether the connection supports marking a thread as read (or removing only `UNREAD` from its messages) and reading back that state. Report capability availability separately from execution. Do not change read state or any labels during a setup check; mark the actual mutation `NOT TESTED` unless already verified during an authorized monitoring run. Missing mark-read permission affects that step, not otherwise available review reading.
+
 On an authentication error, mark Gmail blocked and give the reconnect step. A different connected account is a sender mismatch, not a passing check. Preserve the requested sender; never silently use the account that happens to work.
 
 ## 3. Check Notion and the Terrain portal
@@ -40,6 +42,7 @@ Use `PASS` for an operation that succeeded, `BLOCKED` for a required capability 
 | Gmail login and sender | PASS / BLOCKED / NOT TESTED | Actual account and any sender ambiguity. |
 | Gmail mailbox search across threads | PASS / BLOCKED / NOT TESTED | Successful bounded search, even if empty; read/archived mail is not excluded. |
 | Gmail thread and full-message/HTML-link access | PASS / BLOCKED / NOT TESTED | Actual relevant reads when available; capability inspection alone is not a verified handoff. |
+| Gmail mark-thread-read | PASS / BLOCKED / NOT TESTED | Read-state capability and any prior authorized execution evidence; no mutation in setup-check mode. |
 | Gmail attachment send/readback | PASS / BLOCKED / NOT TESTED | Tool/permission availability; actual sending is not exercised by this mode. |
 | Notion login | PASS / BLOCKED / NOT TESTED | Actual user or integration; workspace only if returned. |
 | Terrain page and discussions | PASS / BLOCKED / NOT TESTED | Exact tested review URL, access limitation, or no link yet. |

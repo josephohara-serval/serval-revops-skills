@@ -52,6 +52,8 @@ While Gmail is the active source, every run must both read the original review t
 | Conditional approval, unresolved changes, or unclear approval scope | Keep legal status pending and surface the condition or needed action. Continue Gmail monitoring while Gmail is active; a verified Terrain Notion reply still ends monitoring. |
 | Deadline, cancellation, or access failure | Stop the monitor and report its actual status and any unfinished review. |
 
+During active Gmail monitoring, after reading and verifying a new reply from the legal-review bot, mark that review thread as read before applying approval or handoff rules. This is part of the default monitoring workflow; do not request separate confirmation. Honor an explicit request to leave mail unread. Follow [reply read state](references/review-monitoring.md#mark-the-bot-review-thread-as-read) and report a failed read-state update without blocking the review outcome. Setup-check remains read-only.
+
 Monitoring reads legal's instructions and decisions; it does not negotiate, post comments, accept changes, or sign. Those actions need their own user request. A resolved discussion or edited page is not signing clearance.
 
 ## 5. Return an evidence-based status
