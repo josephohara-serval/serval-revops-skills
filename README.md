@@ -55,13 +55,15 @@ The skill includes [Serval design guidelines](skills/revops-standard-ui/referenc
 
 ## Use nda-review
 
-The skill defaults to `serval@in.marko.ai` as the legal recipient. The sender is the invoking user's verified email account. It accepts an attached PDF or information that lets the agent acquire or generate one. Preparation-only requests do not send email.
+Invoke `$nda-review` with an NDA to prepare it, submit it to legal, and track the review without separate send or monitoring confirmation. The skill defaults to `serval@in.marko.ai` as the legal recipient. The sender is the invoking user's verified email account. It accepts an attached PDF or information that lets the agent acquire or generate one. Explicit scope limits such as preparation-only, draft-only, send-only, no-send, no-monitoring, and setup-check override the default.
 
-When monitoring is requested, the default is a check every five minutes for one three-hour window. An acknowledgment keeps the review pending. Explicit approval by the legal-review agent stops monitoring and produces a signing-clearance alert. If the agent does not approve, someone from Terrain replies with a link to their Notion client portal. After the correct page and discussion access are verified, tracking moves from that email thread to the Notion review, even if the email does not list specific changes. Terrain's explicit legal approval then ends monitoring. The original deadline still applies.
+Default monitoring checks every five minutes for one three-hour window measured from the full-workflow invocation, or from a separate monitoring request. Each Gmail run reads the original review thread and searches for separate messages associated with the NDA, including already-read or archived Notion notifications. An acknowledgment keeps the review pending. Explicit approval by the legal-review agent stops monitoring and produces a signing-clearance alert. Terrain's client-portal link may arrive in a reply, a separate email, or a Notion notification. After the correct agreement, page, and discussion access are verified, tracking moves to that Notion review, even if the email does not list specific changes. Terrain's explicit legal approval then ends monitoring. The original deadline still applies.
 
 The shared skill supports installation in Codex, ChatGPT Work, Cursor, Claude Code, and Claude Cowork. See [platform setup](skills/nda-review/references/platform-setup.md) for installation routes, packaging, and required integrations. The updater above manages only `revops-standard-ui`; it does not install or update `nda-review`. Keep the complete skill folder together.
 
 Example requests after installing or attaching the skill:
+
+Attach an NDA and invoke `$nda-review` for the full submit-and-track workflow.
 
 ```text
 Use nda-review to check my setup.
